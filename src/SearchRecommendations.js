@@ -1,4 +1,4 @@
-const SearchRecommendations = () => {
+const SearchRecommendations = ({ artist, setArtist, handleSubmit}) => {
     return (
         <form className='searchForm'>
             {/*TODO: style label to be hidden*/}
