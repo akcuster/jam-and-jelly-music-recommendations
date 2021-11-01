@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-const Content = ({ artist, handleRecommendation}) => {
+const Content = ({ artist, handleSearch }) => {
 
     return (
         <main>
             <h2>Recommending new jams based on music you already love</h2>
             <p>{artist}</p>
-            <button onClick={handleRecommendation}>Click It</button>
+            <button onClick={handleSearch}>Click It</button>
         </main>
     )
 }

@@ -1,6 +1,6 @@
-const SearchRecommendations = ({ artist, setArtist, handleSubmit}) => {
+const Search = ({ artist, setArtist, handleSubmit}) => {
     return (
-        <form className='searchForm'>
+        <form className='searchForm' onSubmit={handleSubmit}>
             {/*TODO: style label to be hidden*/}
             {/*<label htmlFor='search'>Get Recommendations</label>*/}
             <input
@@ -23,4 +23,4 @@ const SearchRecommendations = ({ artist, setArtist, handleSubmit}) => {
     )
 }
 
-export default SearchRecommendations
+export default Search

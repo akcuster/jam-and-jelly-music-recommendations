@@ -1,5 +1,5 @@
 import Header from "./Header";
-import SearchRecommendations from "./SearchRecommendations";
+import Search from "./Search";
 import Content from "./Content";
 import Footer from "./Footer";
 import { useState } from "react"
@@ -8,7 +8,7 @@ const App = () => {
 
     const [artist, setArtist] = useState('')
 
-    const handleRecommendation = () => {
+    const handleSearch = () => {
         const artists = ["Buddy Holly", "The Beatles", "David Bowie"]
         const int = Math.floor(Math.random() * 3)
 
@@ -16,7 +16,9 @@ const App = () => {
     }
 
     const handleSubmit = (e) => {
-        console.log('submitted')
+        e.preventDefault()
+        console.log(artist)
+        setArtist('')
     }
 
     return (
@@ -24,14 +26,14 @@ const App = () => {
             <Header
                 title="Jam & Jelly"
             />
-            <SearchRecommendations
+            <Search
                 artist={artist}
                 setArtist={setArtist}
                 handleSubmit={handleSubmit}
             />
             <Content
                 artist={artist}
-                handleRecommendation={handleRecommendation}
+                handleSearch={handleSearch}
             />
             <Footer />
         </div>
