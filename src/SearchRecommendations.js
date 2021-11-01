@@ -9,6 +9,8 @@ const SearchRecommendations = ({ artist, setArtist, handleSubmit}) => {
                 type='text'
                 placeholder='Give Me Artists Like...'
                 required
+                value={artist}
+                onChange={(e) => setArtist(e.target.value)}
             />
             <button
                 type='submit'
