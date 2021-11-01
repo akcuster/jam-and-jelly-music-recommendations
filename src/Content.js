@@ -1,14 +1,6 @@
 import { useState } from 'react'
 
-const Content = () => {
-    const [artist, setArtist] = useState('Give Me Artists Like...')
-
-    const handleRecommendation = () => {
-        const artists = ["Buddy Holly", "The Beatles", "David Bowie"]
-        const int = Math.floor(Math.random() * 3)
-
-        setArtist(artists[int])
-    }
+const Content = ({ artist, handleRecommendation}) => {
 
     return (
         <main>
