@@ -6,7 +6,7 @@ import { useState } from "react"
 
 const App = () => {
 
-    const [artist, setArtist] = useState('Give Me Artists Like...')
+    const [artist, setArtist] = useState('')
 
     const handleRecommendation = () => {
         const artists = ["Buddy Holly", "The Beatles", "David Bowie"]
