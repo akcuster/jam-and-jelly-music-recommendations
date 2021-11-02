@@ -1,23 +1,43 @@
 import Header from "./Header";
-import Search from "./Search";
+import SearchForm from "./SearchForm";
 import Content from "./Content";
 import Footer from "./Footer";
 import { useState } from "react"
+import api from "./apiRequest";
 
 const App = () => {
 
     const [artist, setArtist] = useState('')
+    const [recommendations, setRecommendations] = useState([])
+    const [fetchError, setFetchError] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSearch = () => {
-        const artists = ["Buddy Holly", "The Beatles", "David Bowie"]
-        const int = Math.floor(Math.random() * 3)
+        const fetchRecommendations = async () => {
+            try {
+                const response = await api.get('/similarartists')
+                console.log(response.data.artist[0].name)
+                setRecommendations(response.data.artist)
+                setFetchError(null)
+            } catch (e) {
+                setIsLoading(false)
+                setFetchError(e.message)
+                // console.log(e.response.data)
+                // console.log(e.response.status)
+                // console.log(e.response.headers)
+            } finally {
+                setIsLoading(false)
+            }
+        }
 
-        setArtist(artists[int])
+        fetchRecommendations()
+        console.log(`Artist searched is ${artist}`)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(artist)
+        setIsLoading(true)
+        handleSearch(artist)
         setArtist('')
     }
 
@@ -26,15 +46,21 @@ const App = () => {
             <Header
                 title="Jam & Jelly"
             />
-            <Search
+            <SearchForm
                 artist={artist}
                 setArtist={setArtist}
                 handleSubmit={handleSubmit}
             />
-            <Content
-                artist={artist}
-                handleSearch={handleSearch}
-            />
+            <main>
+                {isLoading && <p>Loading...</p>}
+                {fetchError && <p>{`Error: ${fetchError}`}</p>}
+                {!fetchError && !isLoading &&
+                <Content
+                    artist={artist}
+                    recommendations={recommendations}
+                />
+                }
+            </main>
             <Footer />
         </div>
     );
