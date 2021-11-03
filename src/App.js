@@ -1,14 +1,17 @@
 import Header from "./Header";
 import SearchForm from "./SearchForm";
 import Content from "./Content";
-import Footer from "./Footer";
 import { useState } from "react"
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+
 import api from "./apiRequest";
 
 
 const App = () => {
 
     const [artist, setArtist] = useState('')
+    const [searchedArtist, setSearchedArtist] = useState('')
     const [recommendations, setRecommendations] = useState([])
     const [fetchError, setFetchError] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -39,31 +42,47 @@ const App = () => {
         e.preventDefault()
         setIsLoading(true)
         handleSearch(artist)
+        setSearchedArtist(artist)
         setArtist('')
     }
 
     return (
-        <div>
-            <Header
-                title="Jam & Jelly"
-            />
-            <SearchForm
-                artist={artist}
-                setArtist={setArtist}
-                handleSubmit={handleSubmit}
-            />
-            <main>
-                {isLoading && <p>Loading...</p>}
-                {fetchError && <p>{`Error: ${fetchError}`}</p>}
-                {!fetchError && !isLoading &&
-                <Content
-                    artist={artist}
-                    recommendations={recommendations}
+        <Container
+            component='main'
+            maxWidth='sm'
+        >
+            <Grid
+                container
+                item
+                justifyContent='center'
+            >
+
+                <Header
+                    title="Jam & Jelly"
                 />
-                }
-            </main>
-            <Footer />
-        </div>
+
+                <Grid
+                    container
+                    item
+                >
+                    <SearchForm
+                        artist={artist}
+                        setArtist={setArtist}
+                        handleSubmit={handleSubmit}
+                    />
+
+                    {isLoading && <p>Loading...</p>}
+                    {fetchError && <p>{`Error: ${fetchError}`}</p>}
+                    {!fetchError && !isLoading &&
+                    <Content
+
+                        searchedArtist={searchedArtist}
+                        recommendations={recommendations}
+                    />
+                    }
+                </Grid>
+            </Grid>
+        </Container>
     );
 }
 

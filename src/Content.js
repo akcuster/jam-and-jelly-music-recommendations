@@ -1,15 +1,36 @@
-const Content = ({ artist, recommendations }) => {
+import List from '@mui/material/List'
+import Grid from '@mui/material/Grid'
+import ListItem from "@mui/material/ListItem";
+import Typography from "@mui/material/Typography";
+
+const Content = ({ searchedArtist, recommendations }) => {
 
     return (
-        <>
-            <h2>Recommending new jams based on music you already love</h2>
-            <p>{artist}</p>
-            <ol>
-                {recommendations.map((artist, index) => <li key={index}>{artist.name}</li>)}
-            </ol>
+        <Grid
+            container
+            item
+            justifyContent='center'
+            margin='3rem'
+        >
 
+                {searchedArtist &&
+                <Typography
+                    variant='h5'
+                >
+                    Artists Like {searchedArtist}
+                </Typography>
+                }
+                <List>
+                    {recommendations.map((artist, index) =>
+                        <ListItem
+                            key={index}
+                        >
+                            {artist.name}
+                        </ListItem>)
+                    }
+                </List>
 
-        </>
+        </Grid>
     )
 }
 

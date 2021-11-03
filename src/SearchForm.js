@@ -1,31 +1,51 @@
 import { useRef } from 'react'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
 
 const Search = ({ artist, setArtist, handleSubmit}) => {
     const inputRef = useRef()
     return (
-        <form className='searchForm' onSubmit={handleSubmit}>
-            {/*TODO: style label to be hidden*/}
-            {/*<label htmlFor='search'>Get Recommendations</label>*/}
-            <input
-                autoFocus
-                ref={inputRef}
-                id='search'
-                type='text'
-                role='searchbox'
-                placeholder='Give Me Artists Like...'
-                required
-                value={artist}
-                onChange={(e) => setArtist(e.target.value)}
-            />
-            <button
-                type='submit'
-                aria-label='Get Recommendations'
-                onClick={() => inputRef.current.focus()}
+        <Grid
+            container
+            item
+        >
+            <Grid
+                container
+                item
+                justifyContent='center'
+                component='form'
+                className='searchForm'
+                onSubmit={handleSubmit}
             >
-                Get Recommendations
-            </button>
 
-        </form>
+                <TextField
+                    variant='outlined'
+                    color='grey'
+                    size='small'
+                    autoFocus={true}
+                    inputRef={inputRef}
+                    id='search'
+                    type='text'
+                    role='searchbox'
+                    placeholder='Give Me Artists Like...'
+                    required
+                    value={artist}
+                    onChange={(e) => setArtist(e.target.value)}
+                />
+                <Button
+                    variant='contained'
+                    color='success'
+                    type='submit'
+                    aria-label='Get Recommendations'
+                    onClick={() => inputRef.current.focus()}
+                >
+                    Search
+                </Button>
+
+            </Grid>
+        </Grid>
+
     )
 }
 
