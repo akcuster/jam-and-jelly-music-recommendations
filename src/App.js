@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import { useState } from "react"
 import api from "./apiRequest";
 
+
 const App = () => {
 
     const [artist, setArtist] = useState('')
@@ -14,24 +15,24 @@ const App = () => {
 
     const handleSearch = () => {
         const fetchRecommendations = async () => {
+            let response = null
             try {
-                const response = await api.get('/similarartists')
-                console.log(response.data.artist[0].name)
-                setRecommendations(response.data.artist)
+                response = await api.get(`/2.0/?method=artist.getsimilar&artist=${encodeURIComponent(artist)}&limit=5&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+                response.data.similarartists.artist && setRecommendations(response.data.similarartists.artist)
+
                 setFetchError(null)
-            } catch (e) {
-                setIsLoading(false)
-                setFetchError(e.message)
-                // console.log(e.response.data)
-                // console.log(e.response.status)
-                // console.log(e.response.headers)
+            } catch (err) {
+                if (response) {
+                    setFetchError(response.data.message)
+                } else {
+                    setFetchError(err.message)
+                }
             } finally {
                 setIsLoading(false)
             }
         }
 
         fetchRecommendations()
-        console.log(`Artist searched is ${artist}`)
     }
 
     const handleSubmit = (e) => {
